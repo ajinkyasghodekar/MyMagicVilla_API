@@ -1,9 +1,11 @@
-﻿using MagicVilla_VillaAPI.Models;
+﻿using MagicVilla_VillaAPI.Data;
+using MagicVilla_VillaAPI.Models;
 using MagicVilla_VillaAPI.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MagicVilla_VillaAPI.Controllers
 {
+    // [Route("api/controller")]  --> another wahy to route but below one is (line 8) more preffred.
     [Route("api/VillaAPI")]
     [ApiController]
     public class VillaAPIController : ControllerBase
@@ -11,11 +13,13 @@ namespace MagicVilla_VillaAPI.Controllers
         [HttpGet]
         public IEnumerable<VillaDTO> GetVillas()
         {
-            return new List<VillaDTO>
-            {
-                new VillaDTO { Id = 1, Name ="Pool View"},
-                new VillaDTO { Id = 2, Name ="Beach View"}
-            };
+            return VillaStore.VillaList;
+        }
+
+        [HttpGet("Id:int")]
+        public VillaDTO GetVillas(int id)
+        {
+            return VillaStore.VillaList.FirstOrDefault(u=>u.Id == id);
         }
     }
 
