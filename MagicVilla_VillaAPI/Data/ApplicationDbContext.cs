@@ -11,7 +11,12 @@ namespace MagicVilla_VillaAPI.Data
         {
 
         }
+
+        // DbSet for villa details (Villas is a table name we want in our db)
         public DbSet<Villa> Villas { get; set; }
+
+        // DbSet for villa number (VillaNumbers is a table name we want in our db)
+        public DbSet<VillaNumber> VillaNumbers { get; set; }
 
         // Inserting sample data to table
         protected override void OnModelCreating(ModelBuilder modelBuilder)
