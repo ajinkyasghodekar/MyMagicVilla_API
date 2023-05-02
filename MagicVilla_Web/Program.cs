@@ -11,11 +11,17 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 
 // Adding injection to register a httpClient on VillaService
-builder.Services.AddHttpClient<IVillaService, IVillaService>();
+builder.Services.AddHttpClient<IVillaService, VillaService>();
 
 // Adding injection to register VillaService to DI
 builder.Services.AddScoped<IVillaService, VillaService>();
 
+
+// Adding injection to register a httpClient on VillaNumberService
+builder.Services.AddHttpClient<IVillaNumberService, VillaNumberService>();
+
+// Adding injection to register VillaNumberService to DI
+builder.Services.AddScoped<IVillaNumberService, VillaNumberService>();
 
 
 var app = builder.Build();
