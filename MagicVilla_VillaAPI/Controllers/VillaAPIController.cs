@@ -238,7 +238,7 @@ namespace MagicVilla_VillaAPI.Controllers
             return _response;
         }
 
-        /*// Patch (Partial Update in Data) Villa
+        // Patch (Partial Update in Data) Villa
         [HttpPatch("{id:int}", Name = "UpdatePartialVilla")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -248,11 +248,11 @@ namespace MagicVilla_VillaAPI.Controllers
             {
                 return BadRequest();
             }
-            var villa = _dbVilla.GetAsync(u => u.Id == id, tracked: false);
+            var villa = await _dbVilla.GetAsync(u => u.Id == id, tracked: false);
 
             VillaUpdateDTO villaDTO = _mapper.Map<VillaUpdateDTO>(villa);
 
-            *//* Old mapping
+            /* Old mapping
              * VillaUpdateDTO villaDTO = new()
             {
                 Amenity = villa.Amenity,
@@ -263,7 +263,7 @@ namespace MagicVilla_VillaAPI.Controllers
                 Rate = villa.Rate,
                 Occupancy = villa.Occupancy,
                 Sqft = villa.Sqft
-            };*//*
+            };*/
 
             if (villa == null)
             {
@@ -274,7 +274,7 @@ namespace MagicVilla_VillaAPI.Controllers
 
             Villa model = _mapper.Map<Villa>(villaDTO);
 
-            *//* Old mapping
+            /* Old mapping
              * Villa model = new()
             {
                 Amenity = villaDTO.Amenity,
@@ -285,15 +285,15 @@ namespace MagicVilla_VillaAPI.Controllers
                 Rate = villaDTO.Rate,
                 Occupancy = villaDTO.Occupancy,
                 Sqft = villaDTO.Sqft
-            };*//*
+            };*/
 
-            _dbVilla.UpdateAsync(model);
+            await _dbVilla.UpdateAsync(model);
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             return NoContent();
-        }*/
+        }
     }
 }

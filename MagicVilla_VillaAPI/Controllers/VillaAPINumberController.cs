@@ -10,7 +10,7 @@ using System.Net;
 
 namespace MagicVilla_VillaAPI.Controllers
 {
-    // [Route("api/controller")]  --> another way to route but below one is (line 8) more preffred.
+    // [Route("api/controller")]  --> another way to route but below one is more preffred.
     [Route("api/VillaNumberAPI")]
     [ApiController]
     public class VillaAPINumberController : ControllerBase
@@ -30,16 +30,6 @@ namespace MagicVilla_VillaAPI.Controllers
         }
 
 
-        // Old logger with system pre defined in progran.cs logger
-        /*public ILogger<VillaAPIController> _logger { get; }
-        //Adding a logger dependency injection
-        public VillaAPIController(ILogger <VillaAPIController> logger)
-        {
-            _logger = logger;
-        }*/
-
-
-        // Get Villa
         [HttpGet]
         public async Task<ActionResult<APIResponse>> GetVillasNumbers()
         {
@@ -97,20 +87,13 @@ namespace MagicVilla_VillaAPI.Controllers
 
         }
 
-        // Create Villa
+        // Create Villa Number
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<APIResponse>> CreateVillaNumber([FromBody] VillaNumberCreateDTO createDTO)
         {
-            // the below commented code for ModelState is used for validations in place of [ApiController].
-            // But if both are active more prority will be given to [ApiController].
-
-            /*if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }*/
             try
             {
 
@@ -136,18 +119,6 @@ namespace MagicVilla_VillaAPI.Controllers
                 }*/
 
                 VillaNumber villaNumber = _mapper.Map<VillaNumber>(createDTO);
-
-                /* Old mapping
-                 * Villa model = new()
-                {
-                    Amenity = createDTO.Amenity,
-                    Name = createDTO.Name,
-                    Details = createDTO.Details,
-                    ImageUrl = createDTO.ImageUrl,
-                    Rate = createDTO.Rate,
-                    Occupancy = createDTO.Occupancy,
-                    Sqft = createDTO.Sqft
-                };*/
 
                 await _dbVillaNumber.CreateAsync(villaNumber);
                 _response.Result = _mapper.Map <VillaNumberDTO> (villaNumber);
@@ -224,19 +195,6 @@ namespace MagicVilla_VillaAPI.Controllers
                 villa.Occupancy = villaDTO.Occupancy;*/
 
                 VillaNumber model = _mapper.Map<VillaNumber>(updateDTO);
-
-                /* Old mapping
-                 * Villa model = new()
-                {
-                    Amenity = updateDTO.Amenity,
-                    Name = updateDTO.Name,
-                    Id = updateDTO.Id,
-                    Details = updateDTO.Details,
-                    ImageUrl = updateDTO.ImageUrl,
-                    Rate = updateDTO.Rate,
-                    Occupancy = updateDTO.Occupancy,
-                    Sqft = updateDTO.Sqft
-                };*/
 
                 await _dbVillaNumber.UpdateAsync(model);
                 _response.StatusCode = HttpStatusCode.NoContent;
