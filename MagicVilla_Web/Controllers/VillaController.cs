@@ -79,6 +79,21 @@ namespace MagicVilla_Web.Controllers
             return View(model);
         }
 
+        /*//Delete existing villa without opening delete page
+        public async Task<IActionResult> DeleteVilla(int VillaId)
+        {
+            var responce = await _villaService.GetAsync<APIResponse>(VillaId);
+            if (responce != null && responce.IsSuccess)
+            {
+                //VillaDTO model = JsonConvert.DeserializeObject<VillaDTO>(Convert.ToString(responce.Result));
+                var responceNew = await _villaService.DeleteAsync<APIResponse>(VillaId);
+                return RedirectToAction(nameof(IndexVilla));
+                //return View(model);
+            }
+            return NotFound();
+        }*/
+
+
         //Delete existing villa
         public async Task<IActionResult> DeleteVilla(int VillaId)
         {
@@ -102,5 +117,6 @@ namespace MagicVilla_Web.Controllers
             }
             return View(model);
         }
+
     }
 }
