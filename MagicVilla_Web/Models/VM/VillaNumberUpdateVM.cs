@@ -8,9 +8,9 @@ namespace MagicVilla_Web.Models.VM
     {
         public VillaNumberUpdateVM()
         {
-            VillaNumber = new VillaNumberUpdateVM();
+            VillaNumber = new VillaNumberUpdateDTO();
         }
-        public VillaNumberUpdateVM VillaNumber { get; set; }
+        public VillaNumberUpdateDTO VillaNumber { get; set; }
 
         [ValidateNever]
         public IEnumerable<SelectListItem> VillaList { get; set; }
