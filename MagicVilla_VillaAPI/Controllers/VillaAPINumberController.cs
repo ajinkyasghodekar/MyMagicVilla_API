@@ -3,9 +3,11 @@ using MagicVilla_VillaAPI.Data;
 using MagicVilla_VillaAPI.Models;
 using MagicVilla_VillaAPI.Models.Dto;
 using MagicVilla_VillaAPI.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Net;
 
 namespace MagicVilla_VillaAPI.Controllers
@@ -15,8 +17,6 @@ namespace MagicVilla_VillaAPI.Controllers
     [ApiController]
     public class VillaAPINumberController : ControllerBase
     {
-        // New logger with custom logger
-
         private readonly IVillaNumberRepository _dbVillaNumber;
         private readonly IVillaRepository _dbVilla;
         protected APIResponse _response;
@@ -28,7 +28,6 @@ namespace MagicVilla_VillaAPI.Controllers
             this._response = new();
             _dbVilla = dbVilla;
         }
-
 
         [HttpGet]
         public async Task<ActionResult<APIResponse>> GetVillasNumbers()
@@ -48,7 +47,6 @@ namespace MagicVilla_VillaAPI.Controllers
             }
             return _response;
         }
-
         [HttpGet("{id:int}", Name = "GetVillaNumber")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -88,6 +86,7 @@ namespace MagicVilla_VillaAPI.Controllers
         }
 
         // Create Villa Number
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -134,6 +133,7 @@ namespace MagicVilla_VillaAPI.Controllers
         }
 
         // Delete Villa
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id:int}", Name = "DeleteVillaNumber")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -170,6 +170,7 @@ namespace MagicVilla_VillaAPI.Controllers
         }
 
         // Put (Update) Villa
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:int}", Name = "UpdateVillaNumber")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

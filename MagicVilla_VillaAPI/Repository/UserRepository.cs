@@ -1,7 +1,7 @@
 ﻿using MagicVilla_VillaAPI.Data;
 using MagicVilla_VillaAPI.Models.Dto;
 using MagicVilla_VillaAPI.Repository.IRepository;
-using MagicVilla_Web.Models;
+using MagicVilla_VillaAPI.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

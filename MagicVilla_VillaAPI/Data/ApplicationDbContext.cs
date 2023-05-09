@@ -1,5 +1,5 @@
 ﻿using MagicVilla_VillaAPI.Models;
-using MagicVilla_Web.Models;
+using MagicVilla_VillaAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 
