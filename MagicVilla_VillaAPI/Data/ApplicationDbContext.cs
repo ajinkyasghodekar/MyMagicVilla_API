@@ -1,4 +1,5 @@
 ﻿using MagicVilla_VillaAPI.Models;
+using MagicVilla_Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -11,6 +12,9 @@ namespace MagicVilla_VillaAPI.Data
         {
 
         }
+
+        // DbSet for adding Security in our application
+        public DbSet<LocalUser> LocalUsers { get; set; }
 
         // DbSet for villa details (Villas is a table name we want in our db)
         public DbSet<Villa> Villas { get; set; }
