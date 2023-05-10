@@ -6,7 +6,8 @@ using System.Net;
 
 namespace MagicVilla_VillaAPI.Controllers
 {
-    [Route("api/UserAuth")]
+    [Route("api/v{version:apiVersion}/UserAuth")]
+    [ApiVersionNeutral]
     [ApiController]
     public class UserController : Controller
     {
@@ -18,18 +19,18 @@ namespace MagicVilla_VillaAPI.Controllers
             this._response = new();
         }
 
-        [HttpPost ("login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO model)
         {
             var loginResponse = await _userRepo.Login(model);
-            if (loginResponse == null || string .IsNullOrEmpty(loginResponse.Token))
+            if (loginResponse == null || string.IsNullOrEmpty(loginResponse.Token))
             {
-                _response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsSuccess = false;
                 _response.ErrorMessage.Add("Username or Password incorrect");
                 return BadRequest(_response);
             }
-            _response.StatusCode = System.Net.HttpStatusCode.OK;
+            _response.StatusCode = HttpStatusCode.OK;
             _response.IsSuccess = true;
             _response.Result = loginResponse;
             return Ok(_response);
@@ -41,7 +42,7 @@ namespace MagicVilla_VillaAPI.Controllers
             bool ifUserNameUnique = _userRepo.IsUniqueUser(model.UserName);
             if (!ifUserNameUnique)
             {
-                _response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsSuccess = false;
                 _response.ErrorMessage.Add("Username already exists");
                 return BadRequest(_response);
@@ -49,7 +50,7 @@ namespace MagicVilla_VillaAPI.Controllers
             var user = await _userRepo.Register(model);
             if (user == null)
             {
-                _response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsSuccess = false;
                 _response.ErrorMessage.Add("Error while registering");
                 return BadRequest(_response);
